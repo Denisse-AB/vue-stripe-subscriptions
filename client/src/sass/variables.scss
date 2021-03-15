@@ -1,0 +1,21 @@
+// Imports
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+// Typography
+$courette: 'Courgette', cursive;
+$body-font-family: 'Raleway', sans-serif;
+
+// color pallete
+$dark-slate-gray: #364742ff;
+$white: white;
+$purple-darken-4: #4A148C;
+$royal-purple: #81559bff;
+$gradient: linear-gradient(to top right, #c5cae9 0%, #ffffff 80%);
+$lighten-gray: #BDBDBD;
+$indigo-lighten-5: #E8EAF6;
+$stripeBtn: #5469d4;
+
+// media queries
+$xs: 426px;
+$sm: 427px;
