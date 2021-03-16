@@ -1,7 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import axios from 'axios';
-
-const url = 'http://localhost:3000/api/posts'; // TODO: SET PROXY
+// TODO: SET PROXY
+const url = 'http://localhost:3000/api/posts';
 
 class PostService {
   static async createCust(email) {
