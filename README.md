@@ -2,13 +2,20 @@
 
 :hammer_and_wrench: **Under Construction** :hammer_and_wrench:
 
-## Project setup
+## Project setup server side
+```
+npm install
+npm run dev
+```
+
+## Project setup client side
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
+cd client
 npm run serve
 ```
 
@@ -21,6 +28,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
