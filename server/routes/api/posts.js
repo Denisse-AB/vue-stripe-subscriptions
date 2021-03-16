@@ -28,9 +28,6 @@ router.post('/subs', async (req, res) => {
   } catch (error) {
     // FIXME: STATUS CODE MESSAGE NOT DISPLAYING
     return res.status('402').send({ error: { message: error.message } });
-    // return res
-    //   .status('402')
-    //   .send({ error: { message: error.message } } );
   }
 
   // Change the default invoice settings on the customer to the new payment method
