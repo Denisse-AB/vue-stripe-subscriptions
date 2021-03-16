@@ -1,7 +1,9 @@
 <template>
-    <v-container>
-      <h1 class="text-center">Thankyou page!</h1>
-    </v-container>
+  <v-container>
+    <h1 class="text-center">
+      Thankyou page!
+    </h1>
+  </v-container>
 </template>
 
 <script>
