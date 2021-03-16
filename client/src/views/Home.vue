@@ -197,9 +197,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 import PostService from '../post-service';
 
 const stripe = window.Stripe(process.env.VUE_APP_STRIPE_KEY);
+
 // Create an instance of Elements.
 const elements = stripe.elements();
 const style = {
@@ -217,7 +219,6 @@ const style = {
     iconColor: '#fa755a',
   },
 };
-/* eslint object-shorthand: "off" */
 const card = elements.create('card', { style: style });
 
 export default {
@@ -273,11 +274,14 @@ export default {
           }
         });
       } catch (error) {
-        // dialog box
+        // vuetify alert or dialog box
+        if (error.response.status === 402 || {}) {
+          // use vuetify alert or dialog.
+          alert(error.response.statusText);
+        }
       }
     },
     subsPlan1() {
-      // use env.
       this.planId = process.env.VUE_APP_BASIC_PLAN;
       this.price = '5.00';
       this.plan = 'basic';
@@ -303,7 +307,6 @@ export default {
     },
     Submit() {
       this.loading = true;
-      /* eslint prefer-template: off */
       const fullName = this.firstname + ' ' + this.lastname;
       // Create payment method.
       stripe.createPaymentMethod({
@@ -324,14 +327,15 @@ export default {
             this.customerId,
             result.paymentMethod.id,
           ).then((res) => {
-            console.log(res);
             if (res.status === 200) {
-              // push thankyou page.
+              this.$router.push('ThankYou');
             }
           }).catch((err) => {
-            this.displayError(err.message);
             this.loading = false;
-            // alert box or dialog.
+            if (err.response.status === 402 || {}) {
+              // use vuetify alert or dialog.
+              alert(err.response.statusText);
+            }
           });
         }
       });
