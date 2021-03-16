@@ -7,7 +7,7 @@ module.exports = {
   //     new BundleAnalyzerPlugin(),
   //   ],
   // },
-  "transpileDependencies": [
-    "vuetify"
+  transpileDependencies: [
+    'vuetify',
   ],
-}
+};

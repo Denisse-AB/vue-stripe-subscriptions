@@ -4,26 +4,27 @@
     app
     dark
   >
-  <div class="d-flex align-center">
-    <router-link to="/">
-    <v-img
-      alt="Vuetify Logo"
-      class="shrink mr-2"
-      contain
-      src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-      transition="scale-transition"
-      width="40"
-    />
-    </router-link>
-  </div>
+    <div class="d-flex align-center">
+      <router-link to="/">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+      </router-link>
+    </div>
 
-  <v-spacer></v-spacer>
+    <v-spacer />
 
     <v-btn
       id="btnColor"
       text
       to="about"
-    >About
+    >
+      About
     </v-btn>
   </v-app-bar>
 </template>
