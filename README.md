@@ -1,8 +1,11 @@
-# subscriptions
+# Subscriptions template Stripe
 
 :hammer_and_wrench: **Under Construction** :hammer_and_wrench:
 
 ## Project setup server side
+
+- cd to the root of the project.
+
 ```
 npm install
 npm run dev
@@ -10,12 +13,8 @@ npm run dev
 
 ## Project setup client side
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
 cd client
+npm install
 npm run serve
 ```
 
