@@ -367,7 +367,7 @@ export default {
     },
     Submit() {
       this.loading = true;
-      const fullName = this.firstname + ' ' + this.lastname;
+      const fullName = `${this.firstname} ${this.lastname}`;
       // Create payment method.
       stripe.createPaymentMethod({
         type: 'card',
@@ -392,7 +392,7 @@ export default {
             } else {
               this.loading = false;
               this.alert = true;
-              this.alertTxt = 'Problems with your order';
+              this.alertTxt = 'Error, Please try again later!';
             }
           }).catch((err) => {
             this.loading = false;
