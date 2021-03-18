@@ -7,47 +7,58 @@ const router = express.Router()
 
 // post
 router.post('/', async (req, res) => {
-  const { email } = req.body
-  // res.json({ customer: 'exampleId' })
+  const { email } = req.body;
+
+  if (!email) {
+    return res.sendStatus(400);
+  }
   await stripe.customers.create({
     email: email,
   })
     .then((customer) => {
       res.json({ customer: customer.id });
     })
-    .catch(error => console.error(error));
+    .catch((error) => {
+      console.log(error);
+      return res.sendStatus(400);
+    });
 });
 
 router.post('/subs', async (req, res) => {
-  const { firstname, lastname, planId, customerId, paymentMethod } = req.body
-  // TODO: VALIDATIONS
+  const { firstname, lastname, planId, customerId, paymentMethod } = req.body;
+
+  if (!customerId && !paymentMethod) {
+    return res.sendStatus(403);
+  }
+
   try {
     await stripe.paymentMethods.attach(paymentMethod, {
       customer: customerId,
     });
+
+    // Change the default invoice settings on the customer to the new payment method
+    await stripe.customers.update(
+      customerId,
+      {
+        invoice_settings: {
+          default_payment_method: paymentMethod,
+        },
+      }
+    );
+
+    // Create the subscription
+    const subscription = await stripe.subscriptions.create({
+      customer: customerId,
+      items: [{ price: planId }],
+      expand: ['latest_invoice.payment_intent'],
+    });
+
+    res.json(subscription);
+
   } catch (error) {
-    // FIXME: STATUS CODE MESSAGE NOT DISPLAYING
-    return res.status('402').send({ error: { message: error.message } });
+    res.statusMessage = error.message;
+    res.status(402).end();
   }
-
-  // Change the default invoice settings on the customer to the new payment method
-  await stripe.customers.update(
-    customerId,
-    {
-      invoice_settings: {
-        default_payment_method: paymentMethod,
-      },
-    }
-  );
-
-  // Create the subscription
-  const subscription = await stripe.subscriptions.create({
-    customer: customerId,
-    items: [{ price: planId }],
-    expand: ['latest_invoice.payment_intent'],
-  });
-
-  res.send(subscription);
 });
 
 // Webhook listener
