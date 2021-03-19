@@ -1,6 +1,6 @@
 # Subscriptions template Stripe
 
-:hammer_and_wrench: **Under Construction** :hammer_and_wrench:
+Basic Subscription system using Stripe, Vue, Express and Vuetify.
 
 ## Project setup server side
 
@@ -16,14 +16,4 @@ npm run dev
 cd client
 npm install
 npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
