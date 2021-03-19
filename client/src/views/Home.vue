@@ -412,7 +412,6 @@ export default {
 </script>
 
 <style lang="scss" scope>
-  @import 'src/sass/variables.scss';
   h2 {
     color: $dark-slate-gray;
     text-shadow: 2px 2px $lighten-gray;
