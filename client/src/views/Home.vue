@@ -257,7 +257,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import PostService from '../post-service';
 
 const stripe = window.Stripe(process.env.VUE_APP_STRIPE_KEY);

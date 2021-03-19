@@ -1,6 +1,5 @@
-/* eslint linebreak-style: ["error", "windows"] */
 import axios from 'axios';
-// TODO: SET PROXY
+
 const url = 'http://localhost:3000/api/posts';
 
 class PostService {
