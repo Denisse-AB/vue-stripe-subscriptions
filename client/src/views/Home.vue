@@ -145,6 +145,7 @@
           >
             <v-card
               elevation="3"
+              id="thirdCard"
             >
               <v-card-title
                 id="font"
@@ -413,7 +414,6 @@ export default {
 <style lang="scss" scope>
   @import 'src/sass/variables.scss';
   h2 {
-    font-family: $courette;
     color: $dark-slate-gray;
     text-shadow: 2px 2px $lighten-gray;
     font-size: 50px;
@@ -452,6 +452,9 @@ export default {
   }
   // Media Queries
   @media (max-width: $xs) {
+    #thirdCard {
+      max-width: 350px;
+    }
     #font {
       font-size: 25px;
     }
