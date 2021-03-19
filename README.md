@@ -1,6 +1,6 @@
 # Subscriptions template Stripe
 
-Basic Subscription system using Stripe, Vue, Express and Vuetify.
+- Basic Subscription system using Stripe, Vue, Express and Vuetify.
 
 ## Project setup server side
 
@@ -17,3 +17,4 @@ cd client
 npm install
 npm run serve
 ```
+- Rename example.env to .env and insert your variables.
