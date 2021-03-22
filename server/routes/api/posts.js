@@ -40,6 +40,8 @@ router.post('/subs', async (req, res) => {
     await stripe.customers.update(
       customerId,
       {
+        name: firstname,
+        phone: '9394556767',
         invoice_settings: {
           default_payment_method: paymentMethod,
         },
@@ -52,6 +54,14 @@ router.post('/subs', async (req, res) => {
       items: [{ price: planId }],
       expand: ['latest_invoice.payment_intent'],
     });
+
+    if (subscription.status === 'active') {
+      // insert firstname, lastname, customerId, planId, subscription.id, in database
+      // Change your UI to show a success message to your customer.
+      // Call your backend to grant access to your service based on
+      // `result.subscription.items.data[0].price.product` the customer subscribed to.
+      console.log(subscription);
+    }
 
     res.json(subscription);
 
