@@ -5,7 +5,13 @@ const cors = require('cors')
 const app = express()
 
 // middleware
-app.use(express.json())
+app.use((req, res, next) => {
+  if (req.originalUrl === '/api/posts/webhook') {
+    next()
+  } else {
+    express.json()(req, res, next)
+  }
+})
 app.use(cors())
 
 // redirect to route folder
