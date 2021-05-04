@@ -420,6 +420,9 @@ export default {
   h1 {
     color: $royal-purple;
   }
+  input {
+    font-weight: bold;
+  }
   #btnColor {
     background-color: $royal-purple;
     color: $white;
