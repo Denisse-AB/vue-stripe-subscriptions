@@ -136,7 +136,7 @@
             </v-col>
           </v-row>
         </transition>
-        <!-- card 2 -->
+        <!-- card 3 -->
         <transition name="fade">
           <v-row
             v-show="third"
