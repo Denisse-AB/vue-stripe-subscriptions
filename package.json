@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
-    "stripe": "^8.168.0"
+    "stripe": "^8.169.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
