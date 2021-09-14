@@ -328,19 +328,21 @@ export default {
     },
     async Signup() {
       try {
-        await PostService.createCust(this.email).then((res) => {
-          if (res.data.customer) {
-            this.first = false;
-            this.second = true;
-            this.third = false;
-            this.customerId = res.data.customer;
-          }
-        });
+        const res = await PostService.createCust(this.email)
+
+        if (res.data.customer) {
+          this.first = false;
+          this.second = true;
+          this.third = false;
+          this.customerId = res.data.customer;
+        };
+
       } catch (error) {
         this.alert1 = true;
         this.alertTxt = 'Insert Your Email';
       }
     },
+
     subsPlan1() {
       this.planId = process.env.VUE_APP_BASIC_PLAN;
       this.price = '5.00';
@@ -349,6 +351,7 @@ export default {
       this.disabled2 = false;
       this.next();
     },
+
     subsPlan2() {
       this.planId = process.env.VUE_APP_PREMIUM_PLAN;
       this.price = '10.00';
@@ -357,6 +360,7 @@ export default {
       this.disabled = false;
       this.next();
     },
+
     displayError(event) {
       const displayError = document.getElementById('card-errors');
       if (event.error) {
@@ -365,47 +369,51 @@ export default {
         displayError.textContent = '';
       }
     },
-    Submit() {
+
+    async Submit() {
       this.loading = true;
       const fullName = `${this.firstname} ${this.lastname}`;
       // Create payment method.
-      stripe.createPaymentMethod({
+      const result = await stripe.createPaymentMethod({
         type: 'card',
         card: card,
         billing_details: {
           name: fullName,
         },
-      }).then(async (result) => {
-        if (result.error) {
-          this.displayError(result);
-          this.loading = false;
-        } else {
-          await PostService.createSubs(
+      })
+
+      if (result.error) {
+        this.displayError(result);
+        this.loading = false;
+      } else {
+        try {
+          const res = await PostService.createSubs(
             this.firstname,
             this.lastname,
             this.planId,
             this.customerId,
             result.paymentMethod.id,
-          ).then((res) => {
-            if (res.data.status === 'active') {
-              this.$router.push('ThankYou');
-            } else {
-              this.loading = false;
-              this.alert = true;
-              this.alertTxt = 'Error, Please try again later!';
-            }
-          }).catch((err) => {
+          )
+
+          if (res.data.status === 'active') {
+            this.$router.push('ThankYou');
+          } else {
             this.loading = false;
-            if (err.response.status === 402) {
-              this.alert = true;
-              this.alertTxt = err.response.statusText;
-            } else {
-              this.alert = true;
-              this.alertTxt = 'Error, Please try again later.';
-            }
-          });
+            this.alert = true;
+            this.alertTxt = 'Error, Please try again later!';
+          }
+
+        } catch (err) {
+          this.loading = false;
+          if (err.response.status === 402) {
+            this.alert = true;
+            this.alertTxt = err.response.statusText;
+          } else {
+            this.alert = true;
+            this.alertTxt = 'Error, Please try again later.';
+          }
         }
-      });
+      }
     },
   },
 };

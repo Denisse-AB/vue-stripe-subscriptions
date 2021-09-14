@@ -12,16 +12,20 @@ router.post('/', async (req, res) => {
   if (!email) {
     return res.sendStatus(400);
   }
-  await stripe.customers.create({
-    email: email,
-  })
-    .then((customer) => {
-      res.json({ customer: customer.id });
+
+  try {
+    const customer = await stripe.customers.create({
+      email: email,
     })
-    .catch((error) => {
-      console.log(error);
-      return res.sendStatus(400);
-    });
+
+    if (customer) {
+      return res.json({ customer: customer.id });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
 });
 
 router.post('/subs', async (req, res) => {
