@@ -45,7 +45,7 @@ router.post('/subs', async (req, res) => {
       customerId,
       {
         name: firstname,
-        phone: '9394556767',
+        phone: '0000000000', // pass aditional data
         invoice_settings: {
           default_payment_method: paymentMethod,
         },
