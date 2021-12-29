@@ -1,24 +1,29 @@
 require('dotenv').config()
 const express = require('express')
-const stripe = require('stripe')(process.env.STRIPE_SECRET);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const router = express.Router()
 
-// Db connection
+// Your Db connection
 
 // post
 router.post('/', async (req, res) => {
-  const { email } = req.body;
+  console.log(process.env.STRIPE_SECRET);
+  const { email, fullname } = req.body;
 
-  if (!email) {
+  if (!email && !fullname) {
     return res.sendStatus(400);
   }
 
   try {
+    // pass customer fullname and additional parameters
     const customer = await stripe.customers.create({
       email: email,
+      name: fullname
     })
 
     if (customer) {
+      // save the customer.id as stripeCustomerId
+      // in your database.
       return res.json({ customer: customer.id });
     }
 
@@ -27,51 +32,30 @@ router.post('/', async (req, res) => {
     return res.sendStatus(400);
   }
 });
-
 router.post('/subs', async (req, res) => {
-  const { firstname, lastname, planId, customerId, paymentMethod } = req.body;
+  const { customerId, priceId } = req.body;
 
-  if (!customerId && !paymentMethod) {
+  if (!customerId && !priceId) {
     return res.sendStatus(403);
   }
 
   try {
-    await stripe.paymentMethods.attach(paymentMethod, {
-      customer: customerId,
-    });
-
-    // Change the default invoice settings on the customer to the new payment method
-    await stripe.customers.update(
-      customerId,
-      {
-        name: firstname,
-        phone: '0000000000', // pass aditional data
-        invoice_settings: {
-          default_payment_method: paymentMethod,
-        },
-      }
-    );
-
     // Create the subscription
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
-      items: [{ price: planId }],
+      items: [{ price: priceId }],
+      payment_behavior: 'default_incomplete',
       expand: ['latest_invoice.payment_intent'],
     });
 
-    if (subscription.status === 'active') {
-      // insert firstname, lastname, customerId, planId, subscription.id, in database
-      // Change your UI to show a success message to your customer.
-      // Call your backend to grant access to your service based on
-      // `result.subscription.items.data[0].price.product` the customer subscribed to.
-      console.log(subscription);
-    }
-
-    res.json(subscription);
+    res.json({
+      subscriptionId: subscription.id,
+      clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+    });
 
   } catch (error) {
     res.statusMessage = error.message;
-    res.status(402).end();
+    res.status(400).end();
   }
 });
 
@@ -79,7 +63,6 @@ router.post('/subs', async (req, res) => {
 router.post('/webhook',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
-    const sig = req.headers['stripe-signature'];
 
     // Retrieve the event by verifying the signature using the raw body and secret.
     let event;
@@ -87,9 +70,11 @@ router.post('/webhook',
     try {
       event = await stripe.webhooks.constructEvent(
         req.body,
-        sig,
-        webhookSecret
+        req.headers['stripe-signature'],
+        process.env.STRIPE_WEBHOOK_SECRET
       );
+
+      const dataObject = event.data.object;
 
       switch (event.type) {
         case 'invoice.paid':
