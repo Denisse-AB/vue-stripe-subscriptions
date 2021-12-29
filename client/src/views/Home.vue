@@ -36,6 +36,14 @@
                   class="mx-5 mb-3"
                   required
                 />
+                <v-text-field
+                  class="mx-5 mb-3"
+                  v-model="fullname"
+                  :rules="nameRules"
+                  :counter="30"
+                  label="Full name"
+                  required
+                />
                 <div>
                   <v-alert
                     type="warning"
@@ -64,6 +72,15 @@
             </v-card>
           </transition>
         </v-row>
+          <v-alert
+            v-model="alert2"
+            color="red"
+            dense
+            dismissible
+            type="error"
+          >
+            {{ alertTxt }}
+          </v-alert>
         <transition name="fade">
           <v-row v-show="second">
             <v-col
@@ -167,38 +184,12 @@
                 class="headline"
               >
                 <v-icon>mdi-arrow-right-bold</v-icon>Total: <b>${{ price }}</b><br>
-                <v-icon>mdi-arrow-right-bold</v-icon>Subscribing to: <b>{{ plan }}</b>
+                <v-icon>mdi-arrow-right-bold</v-icon>Subscribing to: <b>{{ plan }}</b><br>
+                <v-icon>mdi-arrow-right-bold</v-icon>Full Name: <b>{{ fullname }}</b>
               </v-card-text>
               <!-- form -->
               <v-form v-model="valid">
                 <v-container>
-                  <v-row>
-                    <v-col
-                      cols="12"
-                      md="6"
-                    >
-                      <v-text-field
-                        v-model="firstname"
-                        :rules="nameRules"
-                        :counter="15"
-                        label="First name"
-                        required
-                      />
-                    </v-col>
-
-                    <v-col
-                      cols="12"
-                      md="6"
-                    >
-                      <v-text-field
-                        v-model="lastname"
-                        :rules="nameRules"
-                        :counter="15"
-                        label="Last name"
-                        required
-                      />
-                    </v-col>
-                  </v-row>
                   <div class="mt-5">
                     <!-- stripe -->
                     <div
@@ -293,16 +284,18 @@ export default {
     loading: false,
     alert: false,
     alert1: false,
+    alert2: false,
     valid: false,
     alertTxt: '',
     price: '',
     plan: '',
+    subscriptionId: '',
+    clientSecret: '',
     customerId: '',
-    firstname: '',
-    lastname: '',
+    fullname: '',
     nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => v.length <= 15 || 'Name must be less than 15 characters',
+      (v) => !!v || 'Full Name is required',
+      (v) => v.length <= 30 || 'Your name must be less than 30 characters',
     ],
     email: '',
     emailRules: [
@@ -326,40 +319,6 @@ export default {
       this.second = false;
       this.third = true;
     },
-    async Signup() {
-      try {
-        const res = await PostService.createCust(this.email)
-
-        if (res.data.customer) {
-          this.first = false;
-          this.second = true;
-          this.third = false;
-          this.customerId = res.data.customer;
-        };
-
-      } catch (error) {
-        this.alert1 = true;
-        this.alertTxt = 'Insert Your Email';
-      }
-    },
-
-    subsPlan1() {
-      this.planId = process.env.VUE_APP_BASIC_PLAN;
-      this.price = '5.00';
-      this.plan = 'basic';
-      this.disabled = true;
-      this.disabled2 = false;
-      this.next();
-    },
-
-    subsPlan2() {
-      this.planId = process.env.VUE_APP_PREMIUM_PLAN;
-      this.price = '10.00';
-      this.plan = 'premium';
-      this.disabled2 = true;
-      this.disabled = false;
-      this.next();
-    },
 
     displayError(event) {
       const displayError = document.getElementById('card-errors');
@@ -370,49 +329,81 @@ export default {
       }
     },
 
+    async Signup() {
+      try {
+        const res = await PostService.createCust(
+          this.email,
+          this.fullname
+        )
+
+        if (res.data.customer) {
+          this.first = false;
+          this.second = true;
+          this.third = false;
+          this.customerId = res.data.customer;
+        };
+
+      } catch (error) {
+        this.alert1 = true;
+        this.alertTxt = 'Insert Your Email and Fullname';
+      }
+    },
+
+    async createSubscription(priceId) {
+      try {
+        const res = await PostService.createSubs(
+          this.customerId,
+          priceId,
+        )
+
+        if (res.data) {
+          this.subscriptionId = res.data.subscriptionId,
+          this.clientSecret = res.data.clientSecret,
+          this.next();
+        }
+
+      } catch (err) {
+        this.alert2 = true;
+        this.alertTxt = 'An error has occurred. Try again later';
+      }
+    },
+
+    async subsPlan1() {
+      const priceId = process.env.VUE_APP_BASIC_PLAN;
+      this.price = '5.00';
+      this.plan = 'basic';
+      this.disabled = true;
+      this.disabled2 = false;
+      await this.createSubscription(priceId);
+    },
+
+    async subsPlan2() {
+      const priceId = process.env.VUE_APP_PREMIUM_PLAN;
+      this.price = '10.00';
+      this.plan = 'premium';
+      this.disabled2 = true;
+      this.disabled = false;
+      await this.createSubscription(priceId);
+    },
+
     async Submit() {
       this.loading = true;
-      const fullName = `${this.firstname} ${this.lastname}`;
-      // Create payment method.
-      const result = await stripe.createPaymentMethod({
-        type: 'card',
-        card: card,
-        billing_details: {
-          name: fullName,
+      const result = await stripe.confirmCardPayment(this.clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: this.fullname,
+          },
         },
-      })
+      });
 
       if (result.error) {
-        this.displayError(result);
+        this.alert = true;
+        this.alertTxt = result.error.message;
         this.loading = false;
       } else {
-        try {
-          const res = await PostService.createSubs(
-            this.firstname,
-            this.lastname,
-            this.planId,
-            this.customerId,
-            result.paymentMethod.id,
-          )
-
-          if (res.data.status === 'active') {
-            this.$router.push('ThankYou');
-          } else {
-            this.loading = false;
-            this.alert = true;
-            this.alertTxt = 'Error, Please try again later!';
-          }
-
-        } catch (err) {
-          this.loading = false;
-          if (err.response.status === 402) {
-            this.alert = true;
-            this.alertTxt = err.response.statusText;
-          } else {
-            this.alert = true;
-            this.alertTxt = 'Error, Please try again later.';
-          }
-        }
+        // Successful subscription payment
+        this.$router.push('ThankYou');
       }
     },
   },
