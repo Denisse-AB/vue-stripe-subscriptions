@@ -16,6 +16,10 @@
   <img src="screenshots\subs(7).png" width="500" alt="screenshot">
 </p>
 
+## Requirements
+
+Node.js ^14.6.0
+
 ## Project setup server side
 
 - cd to the root of the project.
