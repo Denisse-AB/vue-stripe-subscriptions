@@ -5,6 +5,17 @@
 
 - Basic Subscription system using Stripe, Vue, Express and Vuetify.
 
+---
+<p align="center">
+  <img src="screenshots\subs(5).png" width="500" alt="screenshot">
+</p>
+<p align="center">
+  <img src="screenshots\subs(6).png" width="500" alt="screenshot">
+</p>
+<p align="center">
+  <img src="screenshots\subs(7).png" width="500" alt="screenshot">
+</p>
+
 ## Project setup server side
 
 - cd to the root of the project.
