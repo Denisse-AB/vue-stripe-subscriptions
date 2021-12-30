@@ -345,7 +345,7 @@ export default {
 
       } catch (error) {
         this.alert1 = true;
-        this.alertTxt = 'Insert Your Email and Fullname';
+        this.alertTxt = 'Error, Try again!';
       }
     },
 
@@ -390,6 +390,7 @@ export default {
       this.loading = true;
       const result = await stripe.confirmCardPayment(this.clientSecret, {
         payment_method: {
+          type: 'card',
           card: card,
           billing_details: {
             name: this.fullname,
