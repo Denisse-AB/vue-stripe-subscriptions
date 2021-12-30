@@ -7,7 +7,7 @@ const router = express.Router()
 
 // post
 router.post('/', async (req, res) => {
-  console.log(process.env.STRIPE_SECRET);
+
   const { email, fullname } = req.body;
 
   if (!email && !fullname) {
@@ -84,7 +84,7 @@ router.post('/webhook',
           break;
         case 'invoice.payment_failed':
           // If the payment fails or the customer does not have a valid payment method,
-          //  an invoice.payment_failed event is sent, the subscription becomes past_due.
+          // an invoice.payment_failed event is sent, the subscription becomes past_due.
           // Use this webhook to notify your user that their payment has
           // failed and to retrieve new card details.
           break;
@@ -100,11 +100,12 @@ router.post('/webhook',
           }
           break;
         default:
-        // Unexpected event type
+          // Unexpected event type
+          console.log('Unexpected event type');
       }
 
       // Return a response to acknowledge receipt of the event
-      res.json({ received: true });
+      res.sendStatus(200);
 
     } catch (err) {
       // On error, log and return the error message
