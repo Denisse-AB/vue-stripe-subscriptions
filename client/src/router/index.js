@@ -21,6 +21,7 @@ const routes = [
   {
     path: '/thankyou',
     name: 'ThankYou',
+    props: true,
     component: () => import('../views/ThankYou.vue'),
   },
 ];

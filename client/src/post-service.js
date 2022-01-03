@@ -15,5 +15,11 @@ class PostService {
     });
     return res;
   }
+  static async delete(subscriptionId) {
+    const res = await axios.post(`${url}/delete`, {
+      subscriptionId,
+    });
+    return res;
+  }
 }
 export default PostService;

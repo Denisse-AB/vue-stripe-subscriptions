@@ -404,7 +404,13 @@ export default {
         this.loading = false;
       } else {
         // Successful subscription payment
-        this.$router.push('ThankYou');
+        // The subscription automatically becomes active upon payment.
+        this.$router.push({
+          name: 'ThankYou',
+          params: {
+            subscriptionId: this.subscriptionId
+          }
+        });
       }
     },
   },
