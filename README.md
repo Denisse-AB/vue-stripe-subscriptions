@@ -1,6 +1,3 @@
-# :hammer_and_pick: Under maintenance :hammer_and_pick:
-- Stripe Webhook event
-
 # Subscription template
 
 - Basic Subscription system using Stripe, Vue, Express and Vuetify.
@@ -18,7 +15,7 @@
 
 ## Requirements
 
-Node.js ^14.6.0
+Node.js >=14.6.0
 
 ## Project setup server side
 
