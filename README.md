@@ -15,7 +15,7 @@
 
 ## Requirements
 
-Node.js >=14.6.0
+Node.js ^16.13.1
 
 ## Project setup server side
 
