@@ -8,9 +8,7 @@
         <h2 class="my-5 pb-8">
           Choose your Subscription!
         </h2>
-        <!-- email -->
         <v-row
-          v-show="first"
           align="center"
           justify="center"
         >
@@ -81,155 +79,6 @@
           >
             {{ alertTxt }}
           </v-alert>
-        <transition name="fade">
-          <v-row v-show="second">
-            <v-col
-              class="color rounded-l-xl"
-              cols="6"
-            >
-              <!-- intra card -->
-              <v-card
-                class="mx-auto my-5"
-                max-width="344"
-                elevation="5"
-              >
-                <v-card-text>
-                  <div><h1>Basic</h1></div>
-                  <p class="patua my-9">
-                    $5.00
-                  </p>
-                  <div class="text--primary">
-                    <h3>
-                      Per Month<br>
-                      Billed Monthly
-                    </h3>
-                  </div>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    id="btnColor"
-                    :disabled="disabled"
-                    class="mx-auto mb-2"
-                    @click="subsPlan1"
-                  >
-                    Select
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col
-              class="color rounded-r-xl"
-              cols="6"
-            >
-              <!-- intra card -->
-              <v-card
-                class="mx-auto my-5"
-                max-width="344"
-                elevation="5"
-              >
-                <v-card-text>
-                  <div><h1>Premium</h1></div>
-                  <p class="patua my-9">
-                    $10.00
-                  </p>
-                  <div class="text--primary">
-                    <h3>
-                      Per Month<br>
-                      Billed Monthly
-                    </h3>
-                  </div>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    id="btnColor"
-                    :disabled="disabled2"
-                    class="mx-auto mb-2"
-                    @click="subsPlan2"
-                  >
-                    Seclect
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-        </transition>
-        <!-- card 3 -->
-        <transition name="fade">
-          <v-row
-            v-show="third"
-            align="center"
-            justify="center"
-          >
-            <v-card
-              elevation="3"
-              id="thirdCard"
-            >
-              <v-card-title
-                id="font"
-                primary-title
-                class="gradient mb-5"
-              >
-                Enter your card details.<br>
-              </v-card-title>
-
-              <v-card-subtitle
-                align="left"
-                class="subtitle-1 mb-3"
-              >
-                <b>Your Subscription will start Now.</b>
-              </v-card-subtitle>
-
-              <v-card-text
-                align="left"
-                class="headline"
-              >
-                <v-icon>mdi-arrow-right-bold</v-icon>Total: <b>${{ price }}</b><br>
-                <v-icon>mdi-arrow-right-bold</v-icon>Subscribing to: <b>{{ plan }}</b><br>
-                <v-icon>mdi-arrow-right-bold</v-icon>Full Name: <b>{{ fullname }}</b>
-              </v-card-text>
-              <!-- form -->
-              <v-form v-model="valid">
-                <v-container>
-                  <div class="mt-5">
-                    <!-- stripe -->
-                    <div
-                      ref="card"
-                      class="inputCard"
-                    />
-
-                    <!-- We'll put the error messages in this element -->
-                    <div
-                      id="card-errors"
-                      role="alert"
-                    />
-                    <br>
-                    <v-alert
-                      v-model="alert"
-                      color="red"
-                      dense
-                      dismissible
-                      type="error"
-                    >
-                      {{ alertTxt }}
-                    </v-alert>
-                    <v-btn
-                      id="stripeBtn"
-                      class="my-3"
-                      block
-                      :loading="loading"
-                      @click="Submit"
-                    >
-                      <v-icon class="mr-1">
-                        mdi-credit-card-check-outline
-                      </v-icon>
-                      Pay with Stripe
-                    </v-btn>
-                  </div>
-                </v-container>
-              </v-form>
-            </v-card>
-          </v-row>
-        </transition>
       </v-col>
     </v-row>
     <br><br><br>
@@ -249,49 +98,17 @@
 </template>
 
 <script>
-import PostService from '../post-service';
-
-const stripe = window.Stripe(process.env.VUE_APP_STRIPE_KEY);
-
-// Create an instance of Elements.
-const elements = stripe.elements();
-const style = {
-  base: {
-    color: '#32325d',
-    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-    fontSmoothing: 'antialiased',
-    fontSize: '16px',
-    '::placeholder': {
-      color: '#aab7c4',
-    },
-  },
-  invalid: {
-    color: '#fa755a',
-    iconColor: '#fa755a',
-  },
-};
-const card = elements.create('card', { style: style });
+import PostService from '../post-service'
 
 export default {
   name: 'Home',
 
   data: () => ({
-    disabled: false,
-    disabled2: false,
-    first: true,
-    second: false,
-    third: false,
     loading: false,
-    alert: false,
     alert1: false,
     alert2: false,
     valid: false,
     alertTxt: '',
-    price: '',
-    plan: '',
-    subscriptionId: '',
-    clientSecret: '',
-    customerId: '',
     fullname: '',
     nameRules: [
       (v) => !!v || 'Full Name is required',
@@ -305,30 +122,7 @@ export default {
     ],
   }),
 
-  mounted() {
-    card.mount(this.$refs.card);
-
-    card.on('change', (event) => {
-      this.displayError(event);
-    });
-  },
-
   methods: {
-    next() {
-      this.first = false;
-      this.second = false;
-      this.third = true;
-    },
-
-    displayError(event) {
-      const displayError = document.getElementById('card-errors');
-      if (event.error) {
-        displayError.textContent = event.error.message;
-      } else {
-        displayError.textContent = '';
-      }
-    },
-
     async Signup() {
       try {
         const res = await PostService.createCust(
@@ -337,109 +131,48 @@ export default {
         )
 
         if (res.data.customer) {
-          this.first = false;
-          this.second = true;
-          this.third = false;
-          this.customerId = res.data.customer;
-        };
+          this.$router.push({
+            name:'Plan',
+            params: {
+              fullName: this.fullname,
+              customerId: res.data.customer
+            },
+            props: true
+          })
+        }
 
       } catch (error) {
         this.alert1 = true;
-        this.alertTxt = 'Error, Try again!';
+        this.alertTxt = 'Error, Try again!'
       }
-    },
-
-    async createSubscription(priceId) {
-      try {
-        const res = await PostService.createSubs(
-          this.customerId,
-          priceId,
-        )
-
-        if (res.data) {
-          this.subscriptionId = res.data.subscriptionId,
-          this.clientSecret = res.data.clientSecret,
-          this.next();
-        }
-
-      } catch (err) {
-        this.alert2 = true;
-        this.alertTxt = 'An error has occurred. Try again later';
-      }
-    },
-
-    async subsPlan1() {
-      const priceId = process.env.VUE_APP_BASIC_PLAN;
-      this.price = '5.00';
-      this.plan = 'basic';
-      this.disabled = true;
-      this.disabled2 = false;
-      await this.createSubscription(priceId);
-    },
-
-    async subsPlan2() {
-      const priceId = process.env.VUE_APP_PREMIUM_PLAN;
-      this.price = '10.00';
-      this.plan = 'premium';
-      this.disabled2 = true;
-      this.disabled = false;
-      await this.createSubscription(priceId);
-    },
-
-    async Submit() {
-      this.loading = true;
-      const result = await stripe.confirmCardPayment(this.clientSecret, {
-        payment_method: {
-          type: 'card',
-          card: card,
-          billing_details: {
-            name: this.fullname,
-          },
-        },
-      });
-
-      if (result.error) {
-        this.alert = true;
-        this.alertTxt = result.error.message;
-        this.loading = false;
-      } else {
-        // Successful subscription payment
-        // The subscription automatically becomes active upon payment.
-        this.$router.push({
-          name: 'ThankYou',
-          params: {
-            subscriptionId: this.subscriptionId
-          }
-        });
-      }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
   h2 {
-    color: $dark-slate-gray;
-    text-shadow: 2px 2px $lighten-gray;
+    color: $header-color;
+    text-shadow: 2px 2px $header-text-color;
     font-size: 50px;
   }
   h1 {
-    color: $royal-purple;
+    color: $header-1;
   }
   input {
     font-weight: bold;
   }
   #btnColor {
-    background-color: $royal-purple;
+    background-color: $header-1;
     color: $white;
   }
   #stripeBtn {
     background-color: $stripeBtn;
     color: $white;
   }
-  p.patua {
+  p.price-tag {
     font-size: 40px;
-    color: $purple-darken-4;
+    color: $price-tag-color;
   }
   .fade-enter-active {
     transition: opacity .5s;
@@ -475,7 +208,7 @@ export default {
       font-size: 30px;
     }
     .color {
-      background-color: $indigo-lighten-5;
+      background-color: $plan-background-color;
     }
   }
 
