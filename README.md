@@ -4,13 +4,13 @@
 
 ---
 <p align="center">
-  <img src="screenshots\subs(5).png" width="500" alt="screenshot">
+  <img src="screenshots\card(1).png" width="500" alt="screenshot">
 </p>
 <p align="center">
-  <img src="screenshots\subs(6).png" width="500" alt="screenshot">
+  <img src="screenshots\card(2).png" width="500" alt="screenshot">
 </p>
 <p align="center">
-  <img src="screenshots\subs(7).png" width="500" alt="screenshot">
+  <img src="screenshots\card(3).png" width="500" alt="screenshot">
 </p>
 
 ## Requirements
