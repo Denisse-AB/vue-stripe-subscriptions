@@ -45,7 +45,7 @@ export default {
   #bar.v-app-bar {
     font-family: $body-font-family;
     #btnColor {
-      background-color: $royal-purple;
+      background-color: $header-1;
     }
   }
 </style>
