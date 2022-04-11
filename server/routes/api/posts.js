@@ -55,8 +55,7 @@ router.post('/subs', async (req, res) => {
     });
 
   } catch (error) {
-    res.statusMessage = error.message;
-    res.status(400).end();
+    return res.sendStatus(400)
   }
 });
 

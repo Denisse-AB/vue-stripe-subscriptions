@@ -137,7 +137,16 @@ export default {
         if (res.data) {
           const subscriptionId = res.data.subscriptionId
           const clientSecret = res.data.clientSecret
-          this.$router.push({ name: 'Checkout', params: {fullName, price, plan, clientSecret, subscriptionId}})
+          this.$router.push({
+            name: 'Checkout',
+            params: {
+              fullName,
+              price,
+              plan,
+              clientSecret,
+              subscriptionId
+            }
+          })
         }
 
       } catch (err) {
