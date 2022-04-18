@@ -124,17 +124,18 @@ export default {
 
   methods: {
     async Signup() {
+      const { email, fullname } = this
       try {
         const res = await PostService.createCust(
-          this.email,
-          this.fullname
+          email,
+          fullname
         )
 
         if (res.data.customer) {
           this.$router.push({
             name:'Plan',
             params: {
-              fullName: this.fullname,
+              fullName: fullname,
               customerId: res.data.customer
             },
             props: true

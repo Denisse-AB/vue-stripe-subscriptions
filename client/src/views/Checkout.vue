@@ -154,20 +154,21 @@ export default {
 
     async Submit() {
       this.loading = true
-      const result = await stripe.confirmCardPayment(this.clientSecret, {
+      const { clientSecret, fullName, alert, alertTxt, loading } = this
+      const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           type: 'card',
           card: card,
           billing_details: {
-            name: this.fullName,
+            name: fullName,
           }
         }
       })
 
       if (result.error) {
-        this.alert = true
-        this.alertTxt = result.error.message
-        this.loading = false
+        alert = true
+        alertTxt = result.error.message
+        loading = false
       } else {
         // Successful subscription payment
         // The subscription automatically becomes active upon payment.
