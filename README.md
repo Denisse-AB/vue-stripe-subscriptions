@@ -1,6 +1,7 @@
 # Subscription template
 
-- Basic Subscription system using Stripe, Vue, Express and Vuetify.
+Basic Subscription system using Stripe, Vue, Express and Vuetify.
+[https://codingpr.com/vue-stripe-subscriptions/](codingpr.com/vue-stripe-subscriptions/).
 
 ---
 <p align="center">
