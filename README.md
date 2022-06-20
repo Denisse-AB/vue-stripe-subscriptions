@@ -15,11 +15,19 @@
 
 ## Requirements
 
-Node.js ^16.13.1
+Node.js ^16.13.1 | Vue v2
 
 ## Project setup server side
 
-- cd to the root of the project.
+- [Fork if you want a copy of this project](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
+- Make a new directory in your computer
+- cd to your new directory
+- Clone repository
+
+```javascript
+git clone https://github.com/<your-github-username>/vue-stripe-subscriptions.git
+```
+- cd to vue-stripe-subscriptions
 
 ```
 npm install
@@ -27,6 +35,9 @@ npm run dev
 ```
 
 ## Project setup client side
+
+- Open new terminal
+
 ```
 cd client
 npm install
