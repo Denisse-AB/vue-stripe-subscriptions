@@ -1,4 +1,6 @@
-# Subscription template
+# :hammer_and_pick: This App will be migrated to Vue 3 Composition API and Tailwind CSS Soon :hammer_and_pick:
+
+# Subscription Boilerplate
 
 Basic Subscription system using Stripe, Vue, Express and Vuetify.
 
