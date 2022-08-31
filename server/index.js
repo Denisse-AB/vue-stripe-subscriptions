@@ -6,7 +6,7 @@ const app = express()
 
 // middleware
 app.use((req, res, next) => {
-  if (req.originalUrl === '/api/posts/webhook') {
+  if (req.originalUrl === '/stripe/webhook') {
     next()
   } else {
     express.json()(req, res, next)
@@ -15,8 +15,8 @@ app.use((req, res, next) => {
 app.use(cors())
 
 // redirect to route folder
-const posts = require('./routes/api/posts')
-app.use('/api/posts', posts)
+const stripe = require('./routes/stripe')
+app.use('/stripe', stripe)
 
 const port = process.env.PORT || 3000
 

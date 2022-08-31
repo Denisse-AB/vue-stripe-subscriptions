@@ -5,26 +5,40 @@ const router = express.Router()
 
 // Your Db connection
 
-// Customer Create
-router.post('/', async (req, res) => {
+router.post('/create-customer', async (req, res) => {
+  const { email, fullname, address, city, zipCode, state } = req.body;
 
-  const { email, fullname } = req.body;
-
-  if (!email && !fullname) {
+  // validation
+  if (!email && !fullname && !address && !city && !zipCode && !state) {
     return res.sendStatus(400);
   }
 
   try {
-    // pass customer fullname and additional parameters
     const customer = await stripe.customers.create({
       email: email,
-      name: fullname
+      name: fullname,
+      shipping: {
+        address: {
+          city: city,
+          country: 'US',
+          line1: address,
+          postal_code: zipCode,
+          state: state,
+        },
+        name: fullname,
+      },
+      address: {
+        city: city,
+        country: 'US',
+        line1: address,
+        postal_code: zipCode,
+        state: state,
+      },
     })
 
     if (customer) {
-      // save the customer.id as stripeCustomerId
-      // in your database.
-      return res.json({ customer: customer.id });
+      // save the customer.id in your database.
+      return res.json({ customer: customer });
     }
 
   } catch (error) {
@@ -33,8 +47,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Create subscription
-router.post('/subs', async (req, res) => {
+router.post('/create-subscription', async (req, res) => {
   const { customerId, priceId } = req.body;
 
   if (!customerId && !priceId) {
@@ -46,6 +59,7 @@ router.post('/subs', async (req, res) => {
       customer: customerId,
       items: [{ price: priceId }],
       payment_behavior: 'default_incomplete',
+      payment_settings: { save_default_payment_method: 'on_subscription' },
       expand: ['latest_invoice.payment_intent'],
     });
 
@@ -59,8 +73,7 @@ router.post('/subs', async (req, res) => {
   }
 });
 
-// Delete the subscription
-router.post('/delete', async (req, res) => {
+router.post('/delete-subscription', async (req, res) => {
   try {
     const deletedSubscription = await stripe.subscriptions.del(
       req.body.subscriptionId
@@ -68,11 +81,10 @@ router.post('/delete', async (req, res) => {
     res.send(deletedSubscription);
 
   } catch (error) {
-    console.log(error);
+    return res.sendStatus(400)
   }
 });
 
-// Webhook listener
 router.post('/webhook',
   express.raw({ type: 'application/json' }),
   async (req, res) => {

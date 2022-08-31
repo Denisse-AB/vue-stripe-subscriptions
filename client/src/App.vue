@@ -1,20 +1,13 @@
-<template>
-  <v-app>
-    <v-main>
-      <nav-bar />
-      <router-view />
-    </v-main>
-  </v-app>
-</template>
-
-<script>
-import NavBar from './components/NavBar';
-
-export default {
-  name: 'App',
-
-  components: {
-    NavBar,
-  }
-};
+<script setup lang="ts">
+import { RouterView } from "vue-router";
+import NavBar from "./components/NavBar.vue";
+import Footer from "./components/Footer.vue";
 </script>
+
+<template>
+  <div class="flex min-h-screen flex-col justify-start">
+    <NavBar />
+    <RouterView />
+    <Footer />
+  </div>
+</template>
