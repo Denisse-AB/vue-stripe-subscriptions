@@ -65,6 +65,7 @@ const Submit = async () => {
   })
   if (result.error) {
     disabled.value = false
+    alert(result.error.message)
   } else {
     // Successful subscription payment
     // The subscription automatically becomes active upon payment.
@@ -114,7 +115,7 @@ const Submit = async () => {
     <div
       id="card-errors"
       role="alert"
-      class="mx-3 text-pink-500 text-lg font-semibold"
+      class="mx-3 text-error-message text-lg font-semibold"
     ></div>
     <div class="justify-center mx-3">
       <button

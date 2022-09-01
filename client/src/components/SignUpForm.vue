@@ -84,7 +84,7 @@ const SignUp = async () => {
     </div>
     <div class="justify-center m-2">
       <button
-        class="w-full mb-2 text-white shadow-md bg-indigo-500 border border-card-bg bg-card-bg mt-5 rounded-sm hover:bg-indigo-400 pb-1"
+        class="w-full mb-2 pb-1 text-white shadow-md bg-indigo-500 border mt-5 rounded-sm hover:bg-indigo-400"
         type="submit"
         :disabled="disabled"
       >

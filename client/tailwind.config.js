@@ -13,6 +13,9 @@ module.exports = {
       },
       fontFamily: {
         'Raleway': ['Raleway']
+      },
+      colors: {
+        'error-message': '#fa755a'
       }
     },
   },

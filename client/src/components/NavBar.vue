@@ -17,7 +17,7 @@ import { RouterLink } from 'vue-router';
     <div class="place-self-center mr-8">
       <RouterLink
         type="button"
-        class="justify-end bg-violet-600 text-white p-2 rounded shadow hover:bg-violet-500 focus:ring-2 focus:ring-slate-400"
+        class="justify-end bg-indigo-500 text-white p-2 rounded shadow hover:bg-indigo-400 focus:ring-2 focus:ring-slate-400"
         to="/about"
       >
         About
