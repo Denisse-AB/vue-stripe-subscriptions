@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 import { usePlanStore } from '../stores/subscription';
 import { useUserStore } from '../stores/user';
 
 const planStore = usePlanStore()
 const userStore = useUserStore()
+const route = useRouter()
 
 const props = defineProps<{
   subscription: string
@@ -18,6 +20,7 @@ try {
   if(res?.status === 200) {
     planStore.$reset()
     userStore.$reset()
+    route.push({ name: 'home' })
   }
 } catch (error) {
     console.log(error);
