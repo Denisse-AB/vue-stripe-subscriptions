@@ -1,7 +1,9 @@
-require('dotenv').config()
-const express = require('express')
+import dotenv from "dotenv";
+import express from "express";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const router = express.Router()
+
+dotenv.config();
 
 // Your Db connection
 
@@ -176,7 +178,7 @@ router.post('/webhook',
       // Return a response to acknowledge receipt of the event
       res.sendStatus(200);
 
-    } catch (err) {
+    } catch (err:any) {
       // On error, log and return the error message
       console.log(`❌ Error message: ${err.message}`);
       return res.status(400).send(`Webhook Error: ${err.message}`);

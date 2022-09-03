@@ -4,8 +4,6 @@
 
 <p>Our working environment is Vue 3 Composition API with Vite, Express with TypeScript, and Tailwind CSS.</p>
 
-<!-- TODO: CLONE YOURSELF TO TEST -->
-<!-- TODO: implement email system -->
 ---
 <p align="center">
   <img src="screenshots\card(1).png" width="500" alt="screenshot">
