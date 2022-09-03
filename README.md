@@ -1,6 +1,8 @@
 # Subscription Boilerplate
 
-Basic Subscription system using Stripe, Vue 3, Express TypeScript, and Tailwind CSS.
+<p>This app is a boilerplate of a Stripe subscription service with Vue 3 Composition API. Use it however you like following Stripe's best practices, rules and regulations.</p>
+
+<p>Our working environment is Vue 3 Composition API with Vite, Express with TypeScript, and Tailwind CSS.</p>
 
 <!-- TODO: CLONE YOURSELF TO TEST -->
 <!-- TODO: implement email system -->
