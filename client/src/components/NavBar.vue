@@ -1,51 +1,27 @@
-<template>
-  <v-app-bar
-    id="bar"
-    app
-    dark
-  >
-    <div class="d-flex align-center">
-      <router-link to="/">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-      </router-link>
-    </div>
-
-    <v-spacer />
-
-    <v-btn
-      id="btnColor"
-      text
-      to="about"
-    >
-      About
-    </v-btn>
-  </v-app-bar>
-</template>
-
-<script>
-export default {
-  name: 'NavBar',
-
-  data: () => ({
-    //
-  }),
-};
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
 </script>
 
-<style lang="scss">
-  @import 'src/sass/variables.scss';
+<template>
+  <header class="shadow-md bg-black flex justify-between">
+    <div class="mx-auto">
+      <RouterLink to="/">
+        <img
+          alt="Vuetify Logo"
+          class="ml-16 w-20 h-20"
+          src="../assets/logo.svg"
+        />
+      </RouterLink>
+    </div>
 
-  #bar.v-app-bar {
-    font-family: $body-font-family;
-    #btnColor {
-      background-color: $header-1;
-    }
-  }
-</style>
+    <div class="place-self-center mr-8">
+      <RouterLink
+        type="button"
+        class="justify-end bg-indigo-500 text-white p-2 rounded shadow hover:bg-indigo-400 focus:ring-2 focus:ring-slate-400"
+        to="/about"
+      >
+        About
+      </RouterLink>
+    </div>
+  </header>
+</template>

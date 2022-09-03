@@ -1,10 +1,8 @@
-# :hammer_and_pick: This App will be migrated to Vue 3 Composition API and Tailwind CSS Soon :hammer_and_pick:
-
 # Subscription Boilerplate
 
-Basic Subscription system using Stripe, Vue, Express and Vuetify.
+<p>This app is a boilerplate of a Stripe subscription service with Vue 3 Composition API. Use it however you like following Stripe's best practices, rules and regulations.</p>
 
-[https://codingpr.com/vue-stripe-subscriptions/](codingpr.com/vue-stripe-subscriptions/).
+<p>Our working environment is Vue 3 Composition API with Vite, Express with TypeScript, and Tailwind CSS.</p>
 
 ---
 <p align="center">
@@ -19,7 +17,7 @@ Basic Subscription system using Stripe, Vue, Express and Vuetify.
 
 ## Requirements
 
-Node.js ^16.13.1 | Vue v2
+Node.js ^16.13.1 | vue@latest | Vite
 
 ## Project setup server side
 
@@ -45,7 +43,7 @@ npm run dev
 ```
 cd client
 npm install
-npm run serve
+npm run dev
 ```
 - Rename example.env to .env and insert your variables.
 
