@@ -30,7 +30,7 @@ Node.js ^16.13.1 | vue@latest | Vite
 git clone https://github.com/<your-github-username>/vue-stripe-subscriptions.git
 ```
 - cd to vue-stripe-subscriptions
-
+<!-- TODO: check -->
 ```
 npm install
 npm run dev
@@ -45,7 +45,7 @@ cd client
 npm install
 npm run dev
 ```
-- Rename example.env to .env and insert your variables.
+- Rename .env.example to .env in both the server and the client, and insert your Stripe keys and variables.
 
 ## Donation
 If you like this project, and makes your work easier as a developer, buy me a cup of :coffee: :wink:
