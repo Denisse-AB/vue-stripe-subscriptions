@@ -1,25 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { usePlanStore } from '../stores/subscription';
-import { useUserStore } from '../stores/user';
-import PlanCard from '../components/PlanCard.vue';
+import { usePlanStore } from '../stores/subscription'
+import { useUserStore } from '../stores/user'
+import PlanCard from '../components/PlanCard.vue'
 
-const planStore = usePlanStore();
-const userStore = useUserStore();
-const router = useRouter();
+const planStore = usePlanStore()
+const userStore = useUserStore()
+const router = useRouter()
 
-async function createSubscription(
-  priceId:string | undefined,
-  price:string,
-  plan: string,
-) {
+async function createSubscription(priceId: string | undefined, price: string, plan: string) {
   try {
-    const res = await planStore.createSubscription(
-      userStore.userData.id,
-      priceId,
-      price,
-      plan
-    )
+    const res = await planStore.createSubscription(userStore.userData.id, priceId, price, plan)
     if (res) {
       router.push({ name: 'checkout' })
     } else {

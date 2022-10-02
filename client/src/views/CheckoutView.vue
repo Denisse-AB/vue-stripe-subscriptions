@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { usePlanStore } from '@/stores/subscription';
-import CardLayout from '../components/CardLayout.vue';
+import { usePlanStore } from '@/stores/subscription'
+import CardLayout from '../components/CardLayout.vue'
 
 const planStore = usePlanStore()
 </script>

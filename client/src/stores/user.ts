@@ -1,12 +1,12 @@
-import { defineStore } from "pinia";
-import axios from "axios";
+import { defineStore } from 'pinia'
+import axios from 'axios'
 
 interface UserData {
-  id: string | null,
+  id: string | null
   name: string
 }
 
-const url = '/stripe';
+const url = '/stripe'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -14,26 +14,31 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     async createCustomer(
-      email:string,
-      fullname:string,
-      address:string,
-      city:string,
-      state:string,
-      zipCode:number
+      email: string,
+      fullname: string,
+      address: string,
+      city: string,
+      state: string,
+      zipCode: number
     ) {
       try {
         const res = await axios.post(`${url}/create-customer`, {
-          email, fullname, address, city, zipCode, state
+          email,
+          fullname,
+          address,
+          city,
+          zipCode,
+          state
         })
-        if(res.status === 200) {
-          this.userData = res.data.customer;
+        if (res.status === 200) {
+          this.userData = res.data.customer
           return this.userData
         } else {
-          throw new Error
+          throw new Error()
         }
       } catch (error) {
-        throw new Error
+        throw new Error()
       }
     }
-  },
+  }
 })

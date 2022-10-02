@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <header class="shadow-md bg-black flex justify-between">
     <div class="mx-auto">
       <RouterLink to="/">
-        <img
-          alt="Vuetify Logo"
-          class="ml-16 w-20 h-20"
-          src="../assets/logo.svg"
-        />
+        <img alt="Vuetify Logo" class="ml-16 w-20 h-20" src="../assets/logo.svg" />
       </RouterLink>
     </div>
 

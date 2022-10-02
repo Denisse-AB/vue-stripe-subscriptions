@@ -1,17 +1,17 @@
-import { defineStore } from "pinia";
-import axios from "axios";
+import { defineStore } from 'pinia'
+import axios from 'axios'
 
 interface PlanData {
-  subscriptionId: string,
+  subscriptionId: string
   clientSecret: string
 }
 
 interface PlanChose {
-  plan:string,
-  price:string
+  plan: string
+  price: string
 }
 
-const url = '/stripe';
+const url = '/stripe'
 
 export const usePlanStore = defineStore('plan', {
   state: () => ({
@@ -20,35 +20,36 @@ export const usePlanStore = defineStore('plan', {
   }),
   actions: {
     async createSubscription(
-      customerId:string | null,
-      priceId:string | undefined,
-      price:string,
-      plan:string
+      customerId: string | null,
+      priceId: string | undefined,
+      price: string,
+      plan: string
     ) {
       try {
         const res = await axios.post(`${url}/create-subscription`, {
-          customerId, priceId
+          customerId,
+          priceId
         })
         if (res.status === 200) {
           this.planData = res.data
-          this.planChose = ({ plan, price })
+          this.planChose = { plan, price }
           return this.planData
         }
       } catch (error) {
-        throw new Error
+        throw new Error()
       }
     },
-    async deleteSubscription(subscriptionId:string){
+    async deleteSubscription(subscriptionId: string) {
       try {
         const res = await axios.post(`${url}/delete-subscription`, {
           subscriptionId
         })
         if (res.status === 200) {
           alert('subscription deleted')
-          return {status: 200}
+          return { status: 200 }
         }
       } catch (error) {
-        throw new Error
+        throw new Error()
       }
     }
   }

@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       screens: {
@@ -12,12 +9,12 @@ module.exports = {
         laptop: '1024px'
       },
       fontFamily: {
-        'Raleway': ['Raleway']
+        Raleway: ['Raleway']
       },
       colors: {
         'error-message': '#fa755a'
       }
-    },
+    }
   },
-  plugins: [],
+  plugins: []
 }

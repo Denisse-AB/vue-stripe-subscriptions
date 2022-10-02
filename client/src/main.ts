@@ -1,11 +1,11 @@
-import { createApp } from "vue";
-import { defineRule } from 'vee-validate';
-import { createPinia } from 'pinia';
-import { required, email, alpha_spaces, digits, max } from '@vee-validate/rules';
-import App from "./App.vue";
-import router from "./router";
+import { createApp } from 'vue'
+import { defineRule } from 'vee-validate'
+import { createPinia } from 'pinia'
+import { required, email, alpha_spaces, digits, max } from '@vee-validate/rules'
+import App from './App.vue'
+import router from './router'
 
-import './index.css';
+import './index.css'
 
 // vee-validate rules
 defineRule('required', required)
@@ -14,10 +14,10 @@ defineRule('alpha_spaces', alpha_spaces)
 defineRule('digits', digits)
 defineRule('max', max)
 
-const pinia = createPinia();
-const app = createApp(App);
+const pinia = createPinia()
+const app = createApp(App)
 
-app.use(pinia);
-app.use(router);
+app.use(pinia)
+app.use(router)
 
-app.mount("#app");
+app.mount('#app')
