@@ -1,7 +1,7 @@
-export {};
+export {}
 
 declare global {
   interface Window {
-    Stripe: any;
+    Stripe: Stripe
   }
 }
