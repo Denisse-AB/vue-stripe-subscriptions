@@ -1,7 +1,7 @@
-import { describe, it, expect, test, vi } from "vitest";
-import { mount } from "@vue/test-utils";
-import router from "@/router";
-import NavBarVue from "../NavBar.vue";
+import { describe, it, expect, test, vi } from 'vitest'
+import { mount } from '@vue/test-utils'
+import router from '@/router'
+import NavBarVue from '../NavBar.vue'
 
 describe('NavBar', () => {
   it('mounts properly', () => {
@@ -10,8 +10,8 @@ describe('NavBar', () => {
         plugins: [router]
       }
     })
-    expect(wrapper.text()).toContain("About")
-  });
+    expect(wrapper.text()).toContain('About')
+  })
 
   test('click buttons', async () => {
     const wrapper = mount(NavBarVue, {
