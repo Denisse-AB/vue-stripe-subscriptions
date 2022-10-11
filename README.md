@@ -4,6 +4,8 @@
 
 <p>Our working environment is Vue 3 Composition API with Vite, Express with TypeScript, and Tailwind CSS.</p>
 
+{% embed https://codingpr.com/create-a-subscription-system-with-vue-3/ %}
+
 ---
 <p align="center">
   <img src="screenshots\card(1).png" width="500" alt="screenshot">
