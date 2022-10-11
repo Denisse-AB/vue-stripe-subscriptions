@@ -4,7 +4,6 @@
 
 <p>Our working environment is Vue 3 Composition API with Vite, Express with TypeScript, and Tailwind CSS.</p>
 
-## Stripe Integration
 [Create a subscription system with Vue 3, Vite, and Stripe.](https://codingpr.com/create-a-subscription-system-with-vue-3/)
 ---
 <p align="center">
