@@ -38,9 +38,11 @@ const premiumPlan = () => {
 
 <template>
   <div class="mx-auto" v-if="userStore.userData.id">
-    <h2 class="text-center text-lg font-bold my-7 tablet:font-bold tablet:text-2xl">
+    <h1
+      class="text-center text-transparent bg-clip-text bg-gradient-to-r from-[#41b883] to-[#6366f1] text-2xl font-bold my-7 py-1 tablet:font-extrabold tablet:text-4xl"
+    >
       Choose your Subscription!
-    </h2>
+    </h1>
     <div class="grid tablet:grid-cols-2 tablet:gap-2">
       <PlanCard
         title="Standard Plan"
