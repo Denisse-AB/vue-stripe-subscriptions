@@ -78,6 +78,22 @@ router.post('/create-subscription', (req, res) => __awaiter(void 0, void 0, void
         return res.sendStatus(400);
     }
 }));
+// Changes to a subscription can result in prorated charges
+// Learn about prorations: https://stripe.com/docs/billing/subscriptions/prorations
+router.post('/update-subscription', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const subscription = yield stripe.subscriptions.retrieve(req.body.subscriptionId);
+    const updatedSubscription = yield stripe.subscriptions.update(req.body.subscriptionId, {
+        cancel_at_period_end: false,
+        items: [
+            {
+                id: subscription.items.data[0].id,
+                price: req.body.priceId,
+            },
+        ],
+        proration_behavior: 'none',
+    });
+    res.send(updatedSubscription);
+}));
 router.post('/delete-subscription', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deletedSubscription = yield stripe.subscriptions.del(req.body.subscriptionId);

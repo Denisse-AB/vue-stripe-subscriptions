@@ -51,6 +51,21 @@ export const usePlanStore = defineStore('plan', {
       } catch (error) {
         throw new Error()
       }
+    },
+    async changeSubscription(subscriptionId: string, priceId: string, plan: string, price: string) {
+      try {
+        const res = await axios.post(`${url}/update-subscription`, {
+          subscriptionId,
+          priceId
+        })
+        if (res.status === 200) {
+          this.planData.subscriptionId = res.data.plan.id
+          this.planChose = { plan, price }
+          return { status: 200 }
+        }
+      } catch (error) {
+        throw new Error()
+      }
     }
   }
 })

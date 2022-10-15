@@ -3,6 +3,7 @@ import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePlanStore } from '../stores/subscription'
 import { useUserStore } from '../stores/user'
+import AlertComp from '../components/AlertComp.vue'
 
 const planStore = usePlanStore()
 const userStore = useUserStore()
@@ -25,25 +26,71 @@ const Cancel = async () => {
     alert('Error deleting transaction')
   }
 }
+
+const Change = async () => {
+  const currentPlan = planStore.planChose.plan
+  const price = planStore.planChose.price === '5.00' ? '10.00' : '5.00'
+  const plan = planStore.planChose.plan === 'Basic' ? 'Premium' : 'Basic'
+  const priceId =
+    currentPlan === 'Basic' ? import.meta.env.VITE_PREMIUM_PLAN : import.meta.env.VITE_BASIC_PLAN
+
+  try {
+    const res = await planStore.changeSubscription(props.subscription, priceId, plan, price)
+    if (res?.status === 200) {
+      alert('Your Plan changed successfully!')
+    }
+  } catch (error) {
+    console.log(error)
+    alert('Error deleting transaction')
+  }
+}
 </script>
 
 <template>
   <div class="container mx-auto" v-if="props.subscription">
-    <h1 class="mt-10 font-bold text-2xl text-center">Thank you!</h1>
-    <div class="p-4 m-5 tablet:flex bg-yellow-200 border-l-8 border-yellow-500">
-      <svg class="w-6 h-6 mobile:float-left mr-1" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" />
-      </svg>
-      <h3 class="font-Raleway font-semibold ml-1">
-        Cancel button for testing purposes. Build a login system to allow customers to cancel their
-        subscriptions.
-      </h3>
-      <button
-        @click="Cancel"
-        class="p-1 mt-2 ml-1 rounded-sm font-semibold shadow-sm border border-yellow-600 bg-yellow-500 hover:bg-yellow-400 tablet:m-0 laptop:ml-20"
-      >
-        Cancel
-      </button>
+    <h1
+      class="text-center text-transparent bg-clip-text bg-gradient-to-r from-[#41b883] to-[#6366f1] text-2xl font-bold my-7 py-1 tablet:font-extrabold tablet:text-4xl"
+    >
+      Thank you!
+    </h1>
+    <div
+      class="p-4 my-2 mx-auto text-center max-w-sm bg-white rounded-lg border shadow-md mobile:p-8 laptop:mt-12"
+    >
+      <h5 class="mb-4 text-xl font-medium text-gray-500">Your Subscription is now Active!</h5>
+      <!-- List -->
+      <ul role="list" class="my-7 space-y-5 divide-y divide-gray-200">
+        <li class="flex space-x-3 justify-between">
+          <span class="text-lg font-normal leading-tight text-gray-500">Subscription</span>
+          <span class="text-lg font-normal leading-tight text-gray-500">{{
+            planStore.planChose.plan
+          }}</span>
+        </li>
+        <li class="flex pt-2 space-x-3 justify-between">
+          <span class="text-lg font-normal leading-tight text-gray-500">Amount</span>
+          <span class="text-lg font-normal leading-tight"
+            >$ {{ planStore.planChose.price }} / Month</span
+          >
+        </li>
+        <li class="flex pt-2 space-x-3 justify-between">
+          <span class="text-lg font-normal leading-tight text-gray-500">Name</span>
+          <span class="text-lg font-normal leading-tight text-gray-500">{{
+            userStore.userData.name
+          }}</span>
+        </li>
+      </ul>
+      <div class="flex space-x-3 mb-0 justify-end">
+        <span
+          @click="Change"
+          class="text-xl font-semibold leading-tight text-indigo-500 cursor-pointer"
+          >Change</span
+        >
+        <span
+          @click="Cancel"
+          class="text-xl font-semibold leading-tight text-pink-500 cursor-pointer"
+          >Cancel</span
+        >
+      </div>
     </div>
+    <AlertComp colors="bg-yellow-200 border-yellow-500" />
   </div>
 </template>
