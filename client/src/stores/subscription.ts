@@ -11,6 +11,11 @@ interface PlanChose {
   price: string
 }
 
+interface ChangeParams extends PlanChose {
+  subscriptionId: string
+  priceId: string
+}
+
 const url = '/stripe'
 
 export const usePlanStore = defineStore('plan', {
@@ -52,7 +57,9 @@ export const usePlanStore = defineStore('plan', {
         throw new Error()
       }
     },
-    async changeSubscription(subscriptionId: string, priceId: string, plan: string, price: string) {
+    async changeSubscription(changeParams: ChangeParams) {
+      const { subscriptionId, priceId, plan, price } = changeParams
+
       try {
         const res = await axios.post(`${url}/update-subscription`, {
           subscriptionId,

@@ -34,8 +34,15 @@ const Change = async () => {
   const priceId =
     currentPlan === 'Basic' ? import.meta.env.VITE_PREMIUM_PLAN : import.meta.env.VITE_BASIC_PLAN
 
+  const changeSubscriptionParams = {
+    subscriptionId: props.subscription,
+    priceId: priceId,
+    plan: plan,
+    price: price
+  }
+
   try {
-    const res = await planStore.changeSubscription(props.subscription, priceId, plan, price)
+    const res = await planStore.changeSubscription(changeSubscriptionParams)
     if (res?.status === 200) {
       alert('Your Plan changed successfully!')
     }

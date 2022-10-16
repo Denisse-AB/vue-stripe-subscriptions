@@ -13,7 +13,7 @@ const props = defineProps<{
     </svg>
     <h3 class="font-Raleway font-semibold ml-1">
       The cancel and change buttons are for testing purposes. Build a login system to allow
-      customers to cancel their subscriptions.
+      customers to cancel and change their subscriptions.
     </h3>
   </div>
 </template>
