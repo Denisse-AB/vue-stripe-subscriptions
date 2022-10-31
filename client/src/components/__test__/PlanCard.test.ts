@@ -3,8 +3,8 @@ import { render } from '@testing-library/vue'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import PlanCardVue from '../PlanCard.vue'
-import router from '@/router'
 import PlanViewVue from '@/views/PlanView.vue'
+import router from '@/router'
 
 describe('The plan view', () => {
   it('click the plan card component', () => {
