@@ -47,8 +47,3 @@ npm install
 npm run dev
 ```
 - Rename .env.example to .env in both the server and the client, and insert your Stripe keys and variables. :warning: Remember to restart your IDE when changing the .env file.
-
-## Donation
-If you like this project, and makes your work easier as a developer, buy me a cup of :coffee: :wink:
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?business=263QJ8D5YHR8E&no_recurring=0&item_name=I+believe+in+open+source%2C+but+a+little+donation+will+be+appreciated.+Thanks%21&currency_code=USD)
