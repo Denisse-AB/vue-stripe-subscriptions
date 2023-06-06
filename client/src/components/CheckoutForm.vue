@@ -16,7 +16,6 @@ const elements = stripe.elements()
 const style = {
   base: {
     color: '#32325d',
-    colorPrimary: '#6366f1',
     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
     fontSmoothing: 'antialiased',
     fontSize: '16px',

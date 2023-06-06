@@ -2,6 +2,7 @@
   "extends": "./tsconfig.config.json",
   "exclude": [],
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "composite": true,
     "lib": [],
     "types": ["node", "vitest/globals"]

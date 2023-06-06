@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import SignUpForm from './SignUpForm.vue'
 import CheckoutForm from './CheckoutForm.vue'
 

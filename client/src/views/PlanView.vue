@@ -14,7 +14,7 @@ async function createSubscription(priceId: string | undefined, price: string, pl
     if (res) {
       router.push({ name: 'checkout' })
     } else {
-      alert('Error creating subscrition, Try again later!')
+      alert('Error creating subscription, Try again later!')
     }
   } catch (error) {
     alert('An error has occurred with our server. Try again later')
@@ -47,15 +47,15 @@ const premiumPlan = () => {
       <PlanCard
         title="Standard Plan"
         :amount="5"
-        icon-1="2 team members"
-        icon-2="5gb"
+        icon1="2 team members"
+        icon2="5gb"
         @click="standardPlan"
       />
       <PlanCard
         title="Premium Plan"
         :amount="10"
-        icon-1="4 team members"
-        icon-2="10gb"
+        icon1="4 team members"
+        icon2="10gb"
         @click="premiumPlan"
       />
     </div>
