@@ -1,6 +1,6 @@
 {
   "name": "subscriptions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stripe Subscriptions Boilerplate",
   "main": "index.js",
   "scripts": {
