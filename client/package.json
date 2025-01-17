@@ -42,5 +42,8 @@
     "vitest": "^0.23.4",
     "vue-tsc": "^0.39.5",
     "wait-for-expect": "^3.0.2"
+  },
+  "engines": {
+    "node": "^22.13.0"
   }
 }
